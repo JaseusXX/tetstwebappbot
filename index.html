@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#1a1a2e">
+    <title>Mini App</title>
+    
+    <!-- Telegram Web App SDK -->
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    
+    <!-- Стили -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Preconnect для оптимизации загрузки шрифтов -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+</head>
+<body>
+    <!-- Контейнер приложения -->
+    <div id="app" class="app">
+        
+        <!-- Заголовок приложения -->
+        <header class="header">
+            <h1 class="header__title">Mini App</h1>
+            <p class="header__subtitle">Современное веб-приложение в Telegram</p>
+        </header>
+
+        <!-- Навигация между страницами -->
+        <nav class="nav" role="navigation" aria-label="Основная навигация">
+            <button class="nav__button active" data-page="home" aria-label="Главная страница">
+                <span class="nav__icon">🏠</span>
+                <span class="nav__text">Главная</span>
+            </button>
+            <button class="nav__button" data-page="counter" aria-label="Счётчик">
+                <span class="nav__icon">🔢</span>
+                <span class="nav__text">Счётчик</span>
+            </button>
+            <button class="nav__button" data-page="generator" aria-label="Генератор">
+                <span class="nav__icon">✨</span>
+                <span class="nav__text">Генератор</span>
+            </button>
+        </nav>
+
+        <!-- Основной контент -->
+        <main class="content" role="main">
+            
+            <!-- Страница 1: Главная -->
+            <section id="page-home" class="page active" role="tabpanel" aria-labelledby="nav-home">
+                <div class="card">
+                    <h2 class="card__title">Добро пожаловать! 👋</h2>
+                    <p class="card__text">
+                        Это демонстрация современного <strong>Telegram Mini App</strong> 
+                        с красивым дизайном и плавными анимациями.
+                    </p>
+                    
+                    <div class="feature-list">
+                        <div class="feature">
+                            <span class="feature__icon">🎨</span>
+                            <span class="feature__text">Glassmorphism дизайн</span>
+                        </div>
+                        <div class="feature">
+                            <span class="feature__icon">🌙</span>
+                            <span class="feature__text">Поддержка темной темы</span>
+                        </div>
+                        <div class="feature">
+                            <span class="feature__icon">📱</span>
+                            <span class="feature__text">Адаптивная верстка</span>
+                        </div>
+                        <div class="feature">
+                            <span class="feature__icon">⚡</span>
+                            <span class="feature__text">Быстрая загрузка</span>
+                        </div>
+                    </div>
+
+                    <button class="button button--primary" id="theme-toggle" aria-label="Переключить тему">
+                        <span id="theme-icon">🌙</span>
+                        <span id="theme-text">Тёмная тема</span>
+                    </button>
+                </div>
+
+                <div class="card">
+                    <h3 class="card__title card__title--small">Информация о пользователе</h3>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <span class="info-item__label">Имя:</span>
+                            <span class="info-item__value" id="user-name">—</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-item__label">ID:</span>
+                            <span class="info-item__value" id="user-id">—</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-item__label">Тема:</span>
+                            <span class="info-item__value" id="user-theme">—</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-item__label">Платформа:</span>
+                            <span class="info-item__value" id="user-platform">—</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Страница 2: Счётчик -->
+            <section id="page-counter" class="page" role="tabpanel" aria-labelledby="nav-counter">
+                <div class="card">
+                    <h2 class="card__title">Счётчик нажатий 🔢</h2>
+                    <p class="card__text">
+                        Простой интерактивный счётчик. Нажимайте кнопки, 
+                        чтобы увеличивать или уменьшать значение.
+                    </p>
+
+                    <div class="counter-display">
+                        <div class="counter-value" id="counter-value" aria-live="polite">0</div>
+                    </div>
+
+                    <div class="button-group">
+                        <button class="button button--success" id="counter-increment" aria-label="Увеличить счётчик">
+                            <span class="button__icon">➕</span>
+                            <span>Увеличить</span>
+                        </button>
+                        <button class="button button--danger" id="counter-decrement" aria-label="Уменьшить счётчик">
+                            <span class="button__icon">➖</span>
+                            <span>Уменьшить</span>
+                        </button>
+                    </div>
+
+                    <button class="button button--secondary" id="counter-reset" aria-label="Сбросить счётчик">
+                        <span class="button__icon">🔄</span>
+                        <span>Сбросить</span>
+                    </button>
+                </div>
+
+                <div class="card">
+                    <h3 class="card__title card__title--small">Статистика</h3>
+                    <div class="stats-grid">
+                        <div class="stat">
+                            <div class="stat__label">Всего кликов</div>
+                            <div class="stat__value" id="total-clicks">0</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat__label">Увеличений</div>
+                            <div class="stat__value" id="increment-clicks">0</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat__label">Уменьшений</div>
+                            <div class="stat__value" id="decrement-clicks">0</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Страница 3: Генератор -->
+            <section id="page-generator" class="page" role="tabpanel" aria-labelledby="nav-generator">
+                <div class="card">
+                    <h2 class="card__title">Генератор мотивации ✨</h2>
+                    <p class="card__text">
+                        Получите случайную мотивирующую фразу для хорошего настроения!
+                    </p>
+
+                    <div class="quote-display" id="quote-display">
+                        <p class="quote-text" id="quote-text">
+                            Нажмите кнопку ниже, чтобы получить мотивирующую фразу 💪
+                        </p>
+                    </div>
+
+                    <button class="button button--primary button--large" id="generate-quote" aria-label="Сгенерировать фразу">
+                        <span class="button__icon">🎲</span>
+                        <span>Сгенерировать фразу</span>
+                    </button>
+                </div>
+
+                <div class="card">
+                    <h3 class="card__title card__title--small">Цвет настроения</h3>
+                    <p class="card__text card__text--small">
+                        Каждая фраза имеет свой цвет. Нажмите на кнопку ниже, чтобы изменить цвет фона.
+                    </p>
+                    
+                    <div class="color-display" id="color-display">
+                        <div class="color-preview" id="color-preview" role="img" aria-label="Предпросмотр цвета"></div>
+                        <span class="color-code" id="color-code">#6366f1</span>
+                    </div>
+
+                    <button class="button button--secondary" id="change-color" aria-label="Изменить цвет">
+                        <span class="button__icon">🎨</span>
+                        <span>Изменить цвет</span>
+                    </button>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- Подвал -->
+        <footer class="footer">
+            <button class="button button--ghost button--small" id="close-app" aria-label="Закрыть приложение">
+                <span class="button__icon">✖️</span>
+                <span>Закрыть</span>
+            </button>
+            <p class="footer__text">Создано с ❤️ для Telegram</p>
+        </footer>
+
+    </div>
+
+    <!-- Скрипты -->
+    <script src="script.js"></script>
+</body>
+</html>
